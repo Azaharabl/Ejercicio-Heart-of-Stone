@@ -4,7 +4,7 @@ interface ICola<T> {
 
     fun isEmpty():Boolean
 
-    fun pop():T
+    fun popOrNull():T?
 
-    fun push(entity:T)
+    fun push(entity:T): Boolean
 }

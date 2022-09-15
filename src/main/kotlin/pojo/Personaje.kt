@@ -4,17 +4,18 @@ import interfaces.IPersonaje
 import java.time.LocalDateTime
 import java.util.*
 
-class Personaje
-    (
+open class Personaje(
     id: String = UUID.randomUUID().toString(),
-    fechaCreacion : LocalDateTime = LocalDateTime.now(),
-    vida :Int ,     //hay que pasarselo
+    fechaCreacion: String = LocalDateTime.now().toString(),
+    vida:Int,     //hay que pasarselo
     nivel: Int = Random().nextInt(3),
-    nombre : String,
-    vararg item: Item
+    nombre: String,    //hay que pasarselo
+    vararg item: Item,
 
     ) : IPersonaje
 {
+
+
     override fun mostrarEstado(): String {
         println("falta por rellenar")
         TODO("Not yet implemented")

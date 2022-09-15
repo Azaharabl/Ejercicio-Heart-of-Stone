@@ -1,12 +1,12 @@
 package interfaces
 
-interface IMatrid{
+interface IMatrid<T>{
 
-    fun verCasilla (diagonal: Int, horizontal: Int): Item?
+    fun verCasilla (diagonal: Int, horizontal: Int): T?
 
-    fun cojerItem (diagonal: Int, horizontal: Int): Item
+    fun cojerItem (diagonal: Int, horizontal: Int): T?
 
-    fun crearMatriz (diagonal: Int, horizontal: Int): Matriz
+    fun crearMatriz (diagonal: Int, horizontal: Int): T
 
 
 }
