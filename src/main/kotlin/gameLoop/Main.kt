@@ -68,11 +68,14 @@ fun crearPersonaje(): Personaje {
 
     var elecion : Int = Random.nextInt(3)
     when(elecion){
-        is 1 ->personaje1 =  Elfo( )
-        is 2 ->personaje1 = Trasgo()
-        else 3 -> personaje1 = Humano()
+         1 ->personaje1 =  Elfo()
+         2 ->personaje1 = Trasgo()
+         else -> personaje1 = Humano()
     }
     return personaje1;
+}
+
+
 }
 
 fun crearPilaDeItems(): Pila<Item> {
