@@ -85,11 +85,11 @@ fun main() {
         //para un segundo en el contador
         tiempo--
 
-        println("matriz: $matriz")
+        println("matriz: ${matriz}")
         println("el tiempo restante son  $tiempo segundos")
 
         //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
-    } while (tiempo == 0 || equipo2Ganado || equipo1Ganado || items.isEmpty())
+    } while(tiempo >= 1 && !equipo2Ganado && !equipo1Ganado && !items.isEmpty())
 
 
     //se imprime el resultado ordenado
@@ -106,6 +106,8 @@ fun imprimir(equipo1: Cola<Personaje> , equipo2 : Cola<Personaje> , matriz: Matr
     println(equipo1.toString())
     println("El equipo 2 con los participantes: ")
     println(equipo2.toString())
+
+
 
 
 }
@@ -181,8 +183,9 @@ fun sacarJugador(equipo: Cola<Personaje>, tamaño : Int, matriz : Matriz): Boole
     //comprobar si el equipo ha ganado
 
     var conseguidos : Int = 0
-    for (i in 0 until 3){
-        var p : Personaje? = equipo.verCasilla(i)
+    for (i in 0 until 3) {
+
+        var p = equipo.verCasilla(i) as Personaje
         if(p?.items?.size!! >4){conseguidos++}
     }
     println("el equipo tiene $conseguidos integrantes del equipo con 5 items")
@@ -201,11 +204,11 @@ fun crearPersonaje(): Personaje {
 
     var personaje1 : Personaje
 
-    var elecion : Int = Random.nextInt(3)
+    var elecion : Int = Random.nextInt(2)
     when(elecion){
-         1 ->personaje1 =  Elfo()
-         2 ->personaje1 = Trasgo()
-         else -> personaje1 = Humano()
+         0->personaje1 =  Elfo()
+         1->personaje1 = Trasgo()
+         else-> personaje1 = Humano()
     }
     return personaje1;
 }

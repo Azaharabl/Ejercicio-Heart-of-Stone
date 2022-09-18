@@ -17,5 +17,9 @@ class Item
         val nivel: Int = Random().nextInt(3)
         val tipo : Tipo = Tipo.values().get(Random().nextInt(4))
 
+    override fun toString(): String {
+        return "[$tipo]"
+    }
 
-     }
+
+}

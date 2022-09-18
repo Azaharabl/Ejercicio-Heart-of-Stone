@@ -16,17 +16,22 @@ class Cola<T>() : ICola<T> {
     }
 
     override fun verCasilla(int : Int): T? {
-        return cola.elementAt(int)
-        //todo no se si quitara o solo verán
+        return cola.get(int)
+        //todo no se si quitara o solo
+        //falla aqui y no se como hacer que no
     }
 
     override fun push(entity: T) : Boolean {
        if(entity!=null) {
-           cola.push(entity)
+           cola.add(0,entity)
            return true
        }else{
            return false
        }
+    }
+
+    override fun toString(): String {
+        return "Cola = $cola)"
     }
 
 

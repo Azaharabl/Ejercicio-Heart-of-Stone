@@ -21,8 +21,10 @@ open class Personaje(vida: Int, nombre: String) : IPersonaje
                 " items=$listaOrdenada})"
     }
 
-
-
+    override fun toString(): String {
+        return " \n\nPersonaje de raza $nombre' \n vida=$vida \n id='$id'\n fechaCreacion='$fechaCreacion'\n nivel=$nivel \n items=$items) \n" +
+                "\n"
+    }
 
 
 }

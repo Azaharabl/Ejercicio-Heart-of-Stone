@@ -24,4 +24,10 @@ class Pila<T>() : IPila<T> {
             return false
         }
     }
+
+    override fun toString(): String {
+        return "Pila = $pila)"
+    }
+
+
 }

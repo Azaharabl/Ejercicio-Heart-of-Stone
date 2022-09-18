@@ -9,4 +9,7 @@ class Elfo (vida : Int = 50,
 
     var inmortalidad : Int = 10
 
+
+
+
 }
