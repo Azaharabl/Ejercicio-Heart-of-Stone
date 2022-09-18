@@ -14,10 +14,13 @@ fun main() {
 
    //pedir Matriz
     var tamaño : Int? = pedirTamañoDeMatriz()
+
+    var matriz : Matriz<Item?>?
+
     if(tamaño !=null){
-        var matriz : Matriz<Item?> = Matriz(tamaño)
+       matriz = Matriz(tamaño)
     }else{
-        println("fallo de juego por error de elecion de tiempo")
+        println("fallo de juego por error de elecion de tamaño")
         exitProcess(1);
     }
 
@@ -34,17 +37,24 @@ fun main() {
     var equipo1 : Cola<Personaje> = crearEquipo()
     var equipo2 : Cola<Personaje> = crearEquipo()
 
-    //constructor de personajes a parte y llamar al contructor aleatorio
 
     //loop de juego que comienza que
+    val unEquipoHaGanado = false // si cada mienbro del equipo tiene 5 items
 
-    //se inicia la matriz y se rrellename
+    //se inicia la matriz y se rellena
+    matriz.relenar()
 
-    //cada 5 se repone
+    do{
 
-    //cada segundo sale un jugador  y pasa la logical y se comprueva que nadie haya ganado
+        //cada 5 se repone
 
-    //se imprime el resultado
+        //cada segundo sale un jugador  y pasa la logical y se comprueva que nadie haya ganado
+
+        //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
+    }while (tiempo == 0 || unEquipoHaGanado || items.isEmpty())
+
+
+    //se imprime el resultado ordenado
 
 
 
@@ -75,8 +85,6 @@ fun crearPersonaje(): Personaje {
     return personaje1;
 }
 
-
-}
 
 fun crearPilaDeItems(): Pila<Item> {
     var pila : Pila<Item> = Pila()

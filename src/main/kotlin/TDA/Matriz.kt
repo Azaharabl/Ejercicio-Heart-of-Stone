@@ -3,31 +3,26 @@ package TDA
 import interfaces.IMatrid
 import pojo.Item
 
-class Matriz<T>(tamaño : Int ) : IMatrid{
+class Matriz(tamaño : Int ) : IMatrid<Item?>{
 
-    var matrid : ArrayList<ArrayList<T>> = ArrayList()
 
-    init {
 
-            for (i in 0 until tamaño) {
-                var fila : ArrayList<T?> = ArrayList<T?>()
-                for (j in 0 until tamaño) {
-                    fila.add(null)
-                }
-            matrid.add(fila);
-        }
+   var m  : Array<Array<Item?>> = Array(tamaño) { Array<Item?>(tamaño) {null} }
+
+
+
+    override fun verCasilla(diagonal: Int, horizontal: Int): Item? {
+      return m[diagonal-1][horizontal-1]
+
     }
 
-    override fun verCasilla(diagonal: Int, horizontal: Int): T? {
-        TODO("Not yet implemented")
+    override fun cojerItemOrNull(diagonal: Int, horizontal: Int): Item? {
+        var casilla : Item? = m.get(diagonal-1)[horizontal-1]
+        m.get(diagonal-1)[horizontal-1] = null
+        return casilla
     }
 
-    override fun cojerItem(diagonal: Int, horizontal: Int): T? {
-        TODO("Not yet implemented")
-    }
 
-    override fun crearMatriz(diagonal: Int, horizontal: Int): Matriz {
-        TODO("Not yet implemented")
-    }
+
 
 }
