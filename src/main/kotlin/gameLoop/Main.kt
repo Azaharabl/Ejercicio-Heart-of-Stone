@@ -38,7 +38,7 @@ fun main() {
     //pila de 200 items
     var items: Pila<Item> = crearPilaDeItems()
 
-    println("Itemas contruidos : $items")
+    println("Itemas contruidos : ${items.toString()}")
 
     //hacer dos equipos cola o fifois
 
@@ -50,7 +50,6 @@ fun main() {
 
     //loop de juego que comienza
     println("juego comienza")
-    val unEquipoHaGanado = false // si cada mienbro del equipo tiene 5 items
 
 
     do {
@@ -79,7 +78,7 @@ fun main() {
         var equipo2Ganado: Boolean = false
 
         if (!equipo1Ganado) {
-           equipo2Ganado= sacarJugador(equipo2, tamaño, matriz)
+            equipo2Ganado = sacarJugador(equipo2, tamaño, matriz)
 
         }
 
@@ -89,15 +88,16 @@ fun main() {
         println("matriz: $matriz")
         println("el tiempo restante son  $tiempo segundos")
 
-            //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
-        }while (tiempo == 0 || equipo2Ganado || equipo1Ganado || items.isEmpty())
+        //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
+    } while (tiempo == 0 || equipo2Ganado || equipo1Ganado || items.isEmpty())
 
 
-        //se imprime el resultado ordenado
+    //se imprime el resultado ordenado
 
-        imprimir(equipo1, equipo2, matriz)
+    imprimir(equipo1, equipo2, matriz)
+}
 
-    }
+
 
 fun imprimir(equipo1: Cola<Personaje> , equipo2 : Cola<Personaje> , matriz: Matriz) {
     println("la matriz final ha sido: ")
@@ -127,7 +127,7 @@ fun sacarJugador(equipo: Cola<Personaje>, tamaño : Int, matriz : Matriz): Boole
 
     if(item != null){
         println("la casilla tiene un item")
-        when(item?.tipo){
+        when(item.tipo){
             Tipo.comida -> if (personaje != null) {
                 personaje.items.add(item)
                 matriz.cojerItemOrNull(horizontalAleatoria,verticalAleatoria)
@@ -194,7 +194,7 @@ fun crearEquipo(): Cola<Personaje> {
     for(i in 0 until 3){
         equipo.push(crearPersonaje())
     }
-    return equipo!!
+    return equipo
 }
 
 fun crearPersonaje(): Personaje {
@@ -246,7 +246,7 @@ fun pedirTamañoDeMatriz(): Int ?{
         if (numero==6 || numero==8 || numero==10){
             correcto=true
         }
-    }while (correcto)
+    }while (!correcto)
     println("perfecto tu tablero sera de $numero casillas de alto y ancho")
 
     //logger.info("tamaño de tablero elegigo")

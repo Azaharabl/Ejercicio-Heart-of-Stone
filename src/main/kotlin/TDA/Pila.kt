@@ -6,7 +6,7 @@ import java.util.*
 
 class Pila<T>() : IPila<T> {
 
-    lateinit var pila: Stack<T>
+    var pila = Stack<T>()
 
     override fun isEmpty(): Boolean {
         return pila.empty()

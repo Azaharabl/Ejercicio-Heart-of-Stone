@@ -12,18 +12,18 @@ class Matriz(tamaño : Int ) : IMatrid<Item?>{
 
 
     override fun verCasilla(diagonal: Int, horizontal: Int): Item? {
-      return m[diagonal-1][horizontal-1]
+      return m[diagonal][horizontal]
 
     }
 
     override fun cojerItemOrNull(diagonal: Int, horizontal: Int): Item? {
-        var casilla : Item? = m.get(diagonal-1)[horizontal-1]
-        m.get(diagonal-1)[horizontal-1] = null
+        var casilla : Item? = m.get(diagonal)[horizontal]
+        m.get(diagonal)[horizontal] = null
         return casilla
     }
 
     override fun ponerItemOrNull(diagonal: Int, horizontal: Int, item : Item? ) {
-        m.get(diagonal-1)[horizontal-1] = item
+        m.get(diagonal)[horizontal] = item
     }
 
 
