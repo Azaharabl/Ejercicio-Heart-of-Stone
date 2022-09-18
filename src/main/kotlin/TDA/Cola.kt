@@ -15,6 +15,11 @@ class Cola<T>() : ICola<T> {
        return cola.pop()
     }
 
+    override fun verCasilla(int : Int): T? {
+        return cola.elementAt(int)
+        //todo no se si quitara o solo verán
+    }
+
     override fun push(entity: T) : Boolean {
        if(entity!=null) {
            cola.push(entity)

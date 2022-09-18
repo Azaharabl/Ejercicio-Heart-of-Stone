@@ -8,60 +8,185 @@ import kotlin.system.exitProcess
 
 fun main() {
 
-    val logger : Logger = Logger.getLogger(" Log")
+    val logger: Logger = Logger.getLogger(" Log")
     logger.info("comienza el juego")
 
 
-   //pedir Matriz
-    var tamaño : Int? = pedirTamañoDeMatriz()
+    //pedir Matriz
+    val tamaño: Int? = pedirTamañoDeMatriz()
 
-    var matriz : Matriz<Item?>?
+    println("tamaño pedido : $tamaño")
 
-    if(tamaño !=null){
-       matriz = Matriz(tamaño)
-    }else{
+    var matriz: Matriz
+
+    if (tamaño != null) {
+        matriz = Matriz(tamaño)
+    } else {
         println("fallo de juego por error de elecion de tamaño")
         exitProcess(1);
     }
 
+    println("matriz construida:  $matriz")
+
 
     //pedir tiempo
-    var tiempo : Int = pedirTiempo()
+    var tiempo: Int = pedirTiempo()
+
+    println("tiempo pedido : $tiempo")
 
 
     //pila de 200 items
-     var items : Pila<Item> = crearPilaDeItems()
+    var items: Pila<Item> = crearPilaDeItems()
+
+    println("Itemas contruidos : $items")
 
     //hacer dos equipos cola o fifois
 
-    var equipo1 : Cola<Personaje> = crearEquipo()
-    var equipo2 : Cola<Personaje> = crearEquipo()
+    var equipo1: Cola<Personaje> = crearEquipo()
+    println("creado el equipo 1  : $equipo1")
 
+    var equipo2: Cola<Personaje> = crearEquipo()
+    println("creado el equipo 2  : $equipo2")
 
-    //loop de juego que comienza que
+    //loop de juego que comienza
+    println("juego comienza")
     val unEquipoHaGanado = false // si cada mienbro del equipo tiene 5 items
 
-    //se inicia la matriz y se rellena
-    matriz.relenar()
 
-    do{
+    do {
 
-        //cada 5 se repone
+        //matriz se llena y rellena cada 5 seg (tiempo)
+
+        if (tiempo != 0 && tiempo % 5 == 0) {
+            //recorremos las casillas
+            for (i in 0 until tamaño) {
+                for (j in 0 until tamaño) {
+
+                    //comprobamos si está vacia
+                    if (matriz.verCasilla(i, j) == null && !items.isEmpty()) {
+                        //si hay items ponerlo en la casilla
+                        matriz.ponerItemOrNull(i, j, items.popOrNull())
+                    }
+                }
+            }
+            println("matriz rellenada correctamente")
+            println("matriz: $matriz")
+        }
 
         //cada segundo sale un jugador  y pasa la logical y se comprueva que nadie haya ganado
 
-        //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
-    }while (tiempo == 0 || unEquipoHaGanado || items.isEmpty())
+        var equipo1Ganado: Boolean = sacarJugador(equipo1, tamaño, matriz)
+        var equipo2Ganado: Boolean = false
+
+        if (!equipo1Ganado) {
+           equipo2Ganado= sacarJugador(equipo2, tamaño, matriz)
+
+        }
+
+        //para un segundo en el contador
+        tiempo--
+
+        println("matriz: $matriz")
+        println("el tiempo restante son  $tiempo segundos")
+
+            //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
+        }while (tiempo == 0 || equipo2Ganado || equipo1Ganado || items.isEmpty())
 
 
-    //se imprime el resultado ordenado
+        //se imprime el resultado ordenado
+
+        imprimir(equipo1, equipo2, matriz)
+
+    }
+
+fun imprimir(equipo1: Cola<Personaje> , equipo2 : Cola<Personaje> , matriz: Matriz) {
+    println("la matriz final ha sido: ")
+    println(matriz.toString())
+    println("El equipo 1 con los participantes: ")
+    println(equipo1.toString())
+    println("El equipo 2 con los participantes: ")
+    println(equipo2.toString())
 
 
+}
 
 
+fun sacarJugador(equipo: Cola<Personaje>, tamaño : Int, matriz : Matriz): Boolean {
 
+    //cojer casilla a suerte
 
+    var horizontalAleatoria = Random.nextInt(tamaño)
+    var verticalAleatoria = Random.nextInt(tamaño)
+    var personaje= equipo.popOrNull()
 
+    println("empieza turno")
+    println("el equipo saca a  $personaje , y va a la casilla $horizontalAleatoria, $verticalAleatoria")
+
+    //ver si puede cojer items
+    var item : Item? = matriz.verCasilla(horizontalAleatoria, verticalAleatoria)
+
+    if(item != null){
+        println("la casilla tiene un item")
+        when(item?.tipo){
+            Tipo.comida -> if (personaje != null) {
+                personaje.items.add(item)
+                matriz.cojerItemOrNull(horizontalAleatoria,verticalAleatoria)
+                println("el Item es comida")
+                println("asi que se añade")
+            }
+            Tipo.material -> if (personaje != null) {
+                // y humano escudo 5
+                println("el Item es material")
+
+                if (personaje::class == Humano::class) {
+                    personaje.items.add(item)
+                    personaje as Humano
+                    personaje.escudo = personaje.escudo + 5
+                    matriz.cojerItemOrNull(horizontalAleatoria, verticalAleatoria)
+                    println("como es humano se añade")
+                }
+            }
+            Tipo.pocion -> if (personaje != null) {
+                // trasgos maldad 2
+                println("el tipo es pocion")
+                if (personaje::class == Trasgo::class) {
+                    personaje.items.add(item)
+                    personaje as Trasgo
+                    personaje.maldad = personaje.maldad + 2
+                    matriz.cojerItemOrNull(horizontalAleatoria, verticalAleatoria)
+                    println("como es trasgo se añade")
+                }
+            }
+            Tipo.hechizo -> if (personaje != null) {
+                // elfo inmortalidad 7
+                println("el tipo es hechizo")
+                if (personaje::class == Elfo::class) {
+                    personaje.items.add(item)
+                    personaje as Elfo
+                    personaje.inmortalidad = personaje.inmortalidad + 7
+                    matriz.cojerItemOrNull(horizontalAleatoria, verticalAleatoria)
+                    println("como es elfo se añade")
+                }
+            }
+        }
+
+    } else{
+        println("la casilla estaba vacia")
+    }
+    if (personaje != null) {
+        println("el personaje se queda de la siguinete forma: $personaje")
+        equipo.push(personaje)
+    }
+
+    //comprobar si el equipo ha ganado
+
+    var conseguidos : Int = 0
+    for (i in 0 until 3){
+        var p : Personaje? = equipo.verCasilla(i)
+        if(p?.items?.size!! >4){conseguidos++}
+    }
+    println("el equipo tiene $conseguidos integrantes del equipo con 5 items")
+    return conseguidos==3
 }
 
 fun crearEquipo(): Cola<Personaje> {
@@ -69,7 +194,7 @@ fun crearEquipo(): Cola<Personaje> {
     for(i in 0 until 3){
         equipo.push(crearPersonaje())
     }
-return equipo!!
+    return equipo!!
 }
 
 fun crearPersonaje(): Personaje {
@@ -84,7 +209,6 @@ fun crearPersonaje(): Personaje {
     }
     return personaje1;
 }
-
 
 fun crearPilaDeItems(): Pila<Item> {
     var pila : Pila<Item> = Pila()
@@ -127,4 +251,8 @@ fun pedirTamañoDeMatriz(): Int ?{
 
     //logger.info("tamaño de tablero elegigo")
     return numero
-}
+    }
+
+
+
+

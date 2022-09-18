@@ -22,7 +22,9 @@ class Matriz(tamaño : Int ) : IMatrid<Item?>{
         return casilla
     }
 
-
+    override fun ponerItemOrNull(diagonal: Int, horizontal: Int, item : Item? ) {
+        m.get(diagonal-1)[horizontal-1] = item
+    }
 
 
 }

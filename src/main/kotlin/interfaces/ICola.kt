@@ -7,4 +7,7 @@ interface ICola<T> {
     fun popOrNull():T?
 
     fun push(entity:T): Boolean
+
+    fun verCasilla(int : Int) : T?
+
 }
