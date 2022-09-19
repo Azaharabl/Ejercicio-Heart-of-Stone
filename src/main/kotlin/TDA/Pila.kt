@@ -25,6 +25,10 @@ class Pila<T>() : IPila<T> {
         }
     }
 
+    override fun size() : Int{
+       return pila.size
+    }
+
     override fun toString(): String {
         return "Pila = $pila)"
     }

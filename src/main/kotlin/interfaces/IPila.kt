@@ -7,4 +7,6 @@ interface IPila<T> {
     fun popOrNull():T?
 
     fun push(entity:T) : Boolean
+
+    fun size() : Int
 }

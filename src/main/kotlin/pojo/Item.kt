@@ -17,9 +17,13 @@ class Item
         val nivel: Int = Random().nextInt(3)
         val tipo : Tipo = Tipo.values().get(Random().nextInt(4))
 
+
     override fun toString(): String {
-        return "[$tipo]"
+        return " [$tipo]"
     }
 
+    fun imprimirDetalle(): String{
+        return  "[Item de $tipo de nivel $nivel creado en $fechaCreacion]. "
+    }
 
 }

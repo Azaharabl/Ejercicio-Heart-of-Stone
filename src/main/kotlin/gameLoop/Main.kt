@@ -43,10 +43,10 @@ fun main() {
     //hacer dos equipos cola o fifois
 
     var equipo1: Cola<Personaje> = crearEquipo()
-    println("creado el equipo 1  : $equipo1")
+    println("creado el equipo “Amazonas de Isengard”  : $equipo1")
 
     var equipo2: Cola<Personaje> = crearEquipo()
-    println("creado el equipo 2  : $equipo2")
+    println("creado el equipo “Caballeros de Elrond”  : $equipo2")
 
     //loop de juego que comienza
     println("juego comienza")
@@ -88,28 +88,55 @@ fun main() {
         println("matriz: ${matriz}")
         println("el tiempo restante son  $tiempo segundos")
 
+        //QUE HA PASADO
+        if(tiempo>=0){ println("EL TIEMPO SE HA ACABADO") }
+        if(equipo1Ganado){ println("EL El EQUIPO “Amazonas de Isengard” HA GANADO ") }
+        if(equipo2Ganado){ println("EL El EQUIPO “Caballeros de Elrond” HA GANADO ") }
+        if(items.isEmpty()){println("YA NO HAY MAS ITEMA ") }
+
         //se acaba si un el tiempo se acaba, un equipo gana o no hay mas items
     } while(tiempo >= 1 && !equipo2Ganado && !equipo1Ganado && !items.isEmpty())
 
 
+
     //se imprime el resultado ordenado
 
-    imprimir(equipo1, equipo2, matriz)
+    imprimir(equipo1, equipo2, matriz, items)
 }
 
 
 
-fun imprimir(equipo1: Cola<Personaje> , equipo2 : Cola<Personaje> , matriz: Matriz) {
-    println("la matriz final ha sido: ")
+fun imprimir(equipo1: Cola<Personaje> , equipo2 : Cola<Personaje> , matriz: Matriz, items:Pila<Item>) {
+    println("\n \n \n LA MATRIZ FINAL HA SIDO !!!: ")
     println(matriz.toString())
-    println("El equipo 1 con los participantes: ")
-    println(equipo1.toString())
-    println("El equipo 2 con los participantes: ")
-    println(equipo2.toString())
+
+    println("EQUIPO “Amazonas de Isengard”: ")
+    imprimirDetalle(equipo1)
+    println("EQUIPO “Caballeros de Elrond”: ")
+    imprimirDetalle(equipo2)
+
+    println("EL REPOSITORIO HA QUEDADO CON  ${items.size()} ITEMS")
 
 
 
 
+
+
+}
+
+fun imprimirDetalle(e: Cola<Personaje>) {
+    for(i in 0 until 3){
+        var p = e.verCasilla(i)
+        if (p != null) {
+            println("el jugador $i")
+            println(p.mostrarEstado())
+        }
+        var items2 =  p?.items?.stream()?.toList()
+        if (items2 != null) {
+            for (j in 0 until items2.size)
+                println(items2[j].imprimirDetalle())
+        }
+    }
 }
 
 
