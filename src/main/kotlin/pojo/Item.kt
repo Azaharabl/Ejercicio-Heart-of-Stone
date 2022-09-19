@@ -1,5 +1,6 @@
 package pojo
 
+import Enums.Tipo
 import java.time.LocalDateTime
 import java.util.*
 

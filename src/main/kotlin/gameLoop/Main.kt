@@ -1,3 +1,4 @@
+import Enums.Tipo
 import TDA.Cola
 import TDA.Matriz
 import TDA.Pila
@@ -131,8 +132,9 @@ fun imprimirDetalle(e: Cola<Personaje>) {
             println("el jugador $i")
             println(p.mostrarEstado())
         }
-        var items2 =  p?.items?.stream()?.toList()
+        var items2 = p?.items?.stream()?.toList()?.sortedBy { it.fechaCreacion }
         if (items2 != null) {
+            println("ordenados por fecha de creacion")
             for (j in 0 until items2.size)
                 println(items2[j].imprimirDetalle())
         }
@@ -284,5 +286,8 @@ fun pedirTamañoDeMatriz(): Int ?{
     }
 
 
-
-
+enum class NombreElfo (NombreElfo : Int) {
+    Abraahham_Alcolädorl(0),
+    Róbertörl_Pávonnerl(1),
+    Bëatrisz_Sánchëzrl(2)
+}

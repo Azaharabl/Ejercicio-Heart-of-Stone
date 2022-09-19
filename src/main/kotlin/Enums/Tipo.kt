@@ -1,4 +1,4 @@
-package pojo
+package Enums
 
  enum class  Tipo (tipo : Int){
      comida(1),

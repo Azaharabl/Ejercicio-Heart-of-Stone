@@ -1,6 +1,8 @@
 package pojo
 
+import Enums.NombreHumano
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 class Humano (
 
